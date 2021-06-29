@@ -1,0 +1,12 @@
+﻿{
+  "profiles": {
+    "DiscordImageDownloader": {
+      "commandName": "Project",
+      "workingDirectory": "$(ProjectDir)",
+      "dotnetRunMessages": "true",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
