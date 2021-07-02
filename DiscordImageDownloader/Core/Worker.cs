@@ -24,24 +24,25 @@ namespace DiscordImageDownloader.Core
 
         public async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            try
+            while (!stoppingToken.IsCancellationRequested)
             {
-                while (!stoppingToken.IsCancellationRequested)
+                try
                 {
                     await Process(stoppingToken);
 
                     await client.Reset(stoppingToken);
 
                     logger.Information("Finished downloading latest files.");
-                    logger.Information("Sleeping for {WaitTime}", settings.CheckInterval);
-
-                    await Task.Delay(settings.CheckInterval, stoppingToken);
                 }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex, "Unhandled exception occured. Stopping to download this resource.");
-                return;
+                catch (Exception ex)
+                {
+                    logger.Error(ex, "Unhandled exception occured. Will sleep and try next time.");
+                    return;
+                }
+
+                logger.Information("Sleeping for {WaitTime}", settings.CheckInterval);
+
+                await Task.Delay(settings.CheckInterval, stoppingToken);
             }
         }
 
