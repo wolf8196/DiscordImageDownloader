@@ -1,6 +1,10 @@
 # DiscordImageDownloader
  Small and simple app to download and keep in sync images (or any other attachments) from Discord channels.
  
+ ## Installation
+ 
+ The app can be run as a usual app (.exe file) or installed as a Windows Service by running "install-as-service.bat" file from command prompt with Admin rights.
+ 
  ## Configuration
  Configuration is done via "appsettings.json" files.
  
