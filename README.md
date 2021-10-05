@@ -36,5 +36,5 @@
    
    **Channel** - channel Id; It can be obtained from the url - ```https://discord.com/channels/<serverId>/<channelId>```;
  
-   **Destination** - path to a directory where the files should be stored (e.g. D:\\Images\\Channel1Images);
+   **Destination** - path to a directory where the files should be stored (e.g. ```D:\\Images\\Channel1Images```);
 5. Start the app
