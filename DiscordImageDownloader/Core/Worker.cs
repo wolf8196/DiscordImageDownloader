@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Linq;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using DiscordImageDownloader.Abstractions;
+using Polly;
 using Serilog;
 
 namespace DiscordImageDownloader.Core
@@ -28,11 +30,18 @@ namespace DiscordImageDownloader.Core
             {
                 try
                 {
-                    await Process(stoppingToken);
+                    var policy = Policy
+                        .Handle<HttpRequestException>()
+                        .RetryForeverAsync();
 
-                    await client.Reset(stoppingToken);
+                    await policy.ExecuteAsync(async () =>
+                    {
+                        await Process(stoppingToken);
 
-                    logger.Information("Finished downloading latest files.");
+                        await client.Reset(stoppingToken);
+
+                        logger.Information("Finished downloading latest files.");
+                    });
                 }
                 catch (Exception ex)
                 {
