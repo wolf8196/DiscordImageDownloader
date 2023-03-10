@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-using System.Reflection;
 using DiscordImageDownloader.Core;
 using DiscordImageDownloader.Discord;
 using Microsoft.Extensions.Configuration;
@@ -19,7 +18,7 @@ namespace DiscordImageDownloader
 
         public static IHostBuilder CreateHostBuilder(string[] args)
         {
-            Directory.SetCurrentDirectory(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
+            Directory.SetCurrentDirectory(AppContext.BaseDirectory);
 
             AppDomain.CurrentDomain.UnhandledException += OnUnhandledException;
 
